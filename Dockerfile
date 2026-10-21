@@ -11,7 +11,7 @@
 # Every input is pinned by digest so a rebuild is reproducible and Renovate can
 # open a bump pull request for each one.
 
-FROM php:8.5-cli@sha256:01a109229f4465bc9ef042d9198f09a4d9da7775a825dbd8572dcdbd8756c4d3
+FROM php:8.5-cli@sha256:c8266eb43a912656e23766f8b39d85433cb4d4cd163fb9716b9649cb4411f527
 
 # One apt transaction: the index can never go stale relative to the installs
 # below it, which is what the previous ~20 separate `apt install` layers risked.
