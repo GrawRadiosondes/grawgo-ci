@@ -11,7 +11,7 @@
 # Every input is pinned by digest so a rebuild is reproducible and Renovate can
 # open a bump pull request for each one.
 
-FROM php:8.5-cli@sha256:c8266eb43a912656e23766f8b39d85433cb4d4cd163fb9716b9649cb4411f527
+FROM php:8.5-cli@sha256:d5e3f03b94966fd65df52b9819c6dde463003b5a32d032698290a0b37b53bb37
 
 # One apt transaction: the index can never go stale relative to the installs
 # below it, which is what the previous ~20 separate `apt install` layers risked.
@@ -72,7 +72,7 @@ RUN { \
         echo 'pcov.directory = app'; \
     } > "$PHP_INI_DIR/conf.d/grawgo-ci.ini"
 
-COPY --from=composer:2@sha256:af98f42dfff7c68ba8d53c2164fd9fde1087b7d449514baa38c418b1f6bc4bac /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2@sha256:d0c32820c62cc860fddd22adceed4eeda7698b093a7a88d503414172ce400626 /usr/bin/composer /usr/local/bin/composer
 
 COPY --from=oven/bun:1@sha256:ec06c3b6cea04192ae6770c434f668ca41d343ad19fa6472216c7b48be39c598 /usr/local/bin/bun /usr/local/bin/bun
 RUN ln -s /usr/local/bin/bun /usr/local/bin/bunx
