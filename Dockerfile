@@ -11,7 +11,7 @@
 # Every input is pinned by digest so a rebuild is reproducible and Renovate can
 # open a bump pull request for each one.
 
-FROM php:8.5-cli@sha256:282fb93697061f8315ce27b522d9bdc8e72d6823316a3771eb30c116e6baec7c
+FROM php:8.5-cli@sha256:dbf32b33595283b79fd1a37ebc1614bdf1b83d3750daad9a57d67dbb9b96ec16
 
 # One apt transaction: the index can never go stale relative to the installs
 # below it, which is what the previous ~20 separate `apt install` layers risked.
@@ -76,9 +76,9 @@ RUN { \
         echo 'pcov.directory = app'; \
     } > "$PHP_INI_DIR/conf.d/grawgo-ci.ini"
 
-COPY --from=composer:2@sha256:ca11f643d7791ebdd90a34fc20caf11380d434007ae539a9ea75cd9212e13dca /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2@sha256:cd3a90dc5624c59a2f9ddf80dad08569f06416db31de519024f249d63bca554b /usr/bin/composer /usr/local/bin/composer
 
-COPY --from=oven/bun:1@sha256:1d22548f177f4ff38e0c15baa3c2c46c6c2060ba2d1bc573bb4720b407548f1d /usr/local/bin/bun /usr/local/bin/bun
+COPY --from=oven/bun:1@sha256:3aa040e5445efa09d75bb428a64ba50db13e2b3ac9b6b0c7f145615f62b2ee18 /usr/local/bin/bun /usr/local/bin/bun
 RUN ln -s /usr/local/bin/bun /usr/local/bin/bunx
 
 # node is here only because node-gyp (used when tree-sitter builds) shells out to it;
