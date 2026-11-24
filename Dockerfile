@@ -62,9 +62,13 @@ RUN docker-php-ext-configure gd --with-jpeg --with-webp \
 # pcov, not xdebug. CI only ever collects line coverage (`pest --coverage --min=100`)
 # and never step-debugs, and pcov is substantially faster at exactly that. The nix
 # build path made this choice in March 2026; the Dockerfile never followed.
-RUN pecl install pcov \
+#
+# Installed with PIE, PECL's official successor: php:8.6-cli and later no longer ship
+# pecl/pear at all. PIE only builds the extension; `docker-php-ext-enable` still writes the ini.
+COPY --from=ghcr.io/php/pie:bin@sha256:157bf7afa33c668c3e763fdeb5fe5bb5248e5189976a438c0eab21a494edb6ff /pie /usr/local/bin/pie
+RUN pie install --no-interaction pecl/pcov \
     && docker-php-ext-enable pcov \
-    && rm -rf /tmp/pear
+    && rm -rf /tmp/pie* ~/.pie ~/.cache
 
 RUN { \
         echo 'memory_limit = 1G'; \
