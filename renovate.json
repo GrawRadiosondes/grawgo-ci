@@ -1,3 +1,11 @@
 {
-  "extends": ["github>GrawRadiosondes/renovate-config"]
+  "extends": ["github>GrawRadiosondes/renovate-config"],
+  "packageRules": [
+    {
+      "description": "Hold the base image on PHP 8.5: pcov (the coverage driver grawgo's --min=100 run needs) does not compile against PHP 8.6 yet, see krakjoe/pcov#133 and #134. Drop this rule once a pcov release supports 8.6.",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["php"],
+      "allowedVersions": "/^8\\.5-cli$/"
+    }
+  ]
 }
